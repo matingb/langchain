@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  padding: 30px;
+  column-gap: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-box {
+  width: 500px;
+  height: 300px;
+}
