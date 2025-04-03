@@ -1,65 +1,29 @@
-import {DETECT_LANGUAGE_PROMPT, getTranslateTextPrompt} from "./prompts";
-import {LanguageDetectionResponseFormatter} from "./types";
+import * as express from "express";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const {ChatGroq} = require("@langchain/groq");
-const {HumanMessage, SystemMessage} = require("@langchain/core/messages");
-const {wrapSDK} = require("langsmith/wrappers");
+import {translateText} from "./services/translationService";
+import {detectLanguage} from "./services/languageService";
 
 const app = express();
+const PORT = process.env.PORT;
+
 app.use(express.json());
-app.use(cors());
 
-const model = wrapSDK(
-    new ChatGroq({
-        model: "llama-3.3-70b-versatile",
-        temperature: 0,
-        apiKey: process.env.GROQ_API_KEY,
-    })
-);
+app.post('/detect-language', async (req, res) => {
+    const {text} = req.body;
 
-
-const languageDetectionModel = model.withStructuredOutput(LanguageDetectionResponseFormatter);
-
-app.post("/detect-language", async (req, res) => {
-    try {
-        const {text} = req.body;
-        if (!text || text.trim() === "") return res.status(400).json({error: "Text is required"});
-
-        const response = await languageDetectionModel.invoke([
-            new SystemMessage(DETECT_LANGUAGE_PROMPT),
-            new HumanMessage(text),
-        ]);
-
-        res.json({language: response.language});
-    } catch (error) {
-        console.error("Error detecting language:", error);
-        res.status(500).json({error: "Failed to detect language"});
-    }
-});
+    const response = await detectLanguage(text);
+    res.json({language: response.language});
+})
 
 app.post("/translate", async (req, res) => {
-    try {
-        const {text, sourceLang, targetLang} = req.body;
-        if (!text || !sourceLang || !targetLang) {
-            return res.status(400).json({error: "Text, sourceLang, and targetLang are required"});
-        }
+    const {text, sourceLang, targetLang} = req.body;
 
-        const response = await model.invoke([
-            new SystemMessage(getTranslateTextPrompt(sourceLang, targetLang)),
-            new HumanMessage(text),
-        ]);
+    const translation = await translateText({text, sourceLang, targetLang});
+    res.json({translation});
+})
 
-        res.json({translation: response.content});
-    } catch (error) {
-        console.error("Error translating text:", error);
-        res.status(500).json({error: "Failed to translate text"});
-    }
+app.listen(PORT, () => {
+console.log(`Server running: http://localhost:${PORT}`);
 });
-
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-

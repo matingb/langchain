@@ -1,8 +1,8 @@
-import {HumanMessage, SystemMessage} from "@langchain/core/messages";
-import {z} from "zod";
-import {DETECT_LANGUAGE_PROMPT} from "../prompts";
 import {LanguageDetectionResponse} from "../types";
+import {HumanMessage, SystemMessage} from "@langchain/core/messages";
+import {DETECT_LANGUAGE_PROMPT} from "../prompts";
 import {model} from "./modelService";
+import {z} from "zod";
 
 const LanguageDetectionResponseFormatter = z.object({
     language: z.string().min(1, "Language is required"),
@@ -12,6 +12,7 @@ const LanguageDetectionResponseFormatter = z.object({
 const languageDetectionModel = model.withStructuredOutput(LanguageDetectionResponseFormatter);
 
 export const detectLanguage = async (text: string): Promise<LanguageDetectionResponse> => {
+
     const response = await languageDetectionModel.invoke([
         new SystemMessage(DETECT_LANGUAGE_PROMPT),
         new HumanMessage(text),
