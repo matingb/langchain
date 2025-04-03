@@ -1,11 +1,13 @@
-import * as express from "express";
-import * as dotenv from "dotenv";
+import express from "express";
+import dotenv from "dotenv";
 dotenv.config();
+import cors from "cors";
 
 import {translateText} from "./services/translationService";
 import {detectLanguage} from "./services/languageService";
 
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT;
 
 app.use(express.json());

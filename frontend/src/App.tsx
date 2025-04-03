@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {Client} from "langsmith";
 
 
 enum Language {
@@ -16,39 +15,6 @@ function App() {
     const [detectedLang, setDetectedLang] = useState<Language>(Language.Unknown);
     const [targetLang, setTargetLang] = useState<Language>(Language.English);
     const [loading, setLoading] = useState(false);
-
-    // useEffect(() => {
-    //     const test = async () => {
-    //
-    //         const examplesTest: [string, string][] = [
-    //             ["Esta es un lindo dia", "es",],
-    //             ["This is a wonderful day", "en"],
-    //             ["questa è una bellissima giornata", "it"],
-    //         ];
-    //
-    //         const inputs = examplesTest.map(([inputPrompt]) => ({
-    //             question: inputPrompt,
-    //         }));
-    //         const outputs = examplesTest.map(([, outputAnswer]) => ({
-    //             answer: outputAnswer,
-    //         }));
-    //
-    //         const client = new Client({apiKey: process.env.REACT_APP_LANGSMITH_API_KEY})
-    //         const datasetName = "Language detection dataset"
-    //         const isDatasetCreated = client.hasDataset({datasetName: datasetName})
-    //         if (!isDatasetCreated) {
-    //
-    //             const dataset = await client.createDataset("Language detection dataset");
-    //
-    //             await client.createExamples({
-    //                 inputs,
-    //                 outputs,
-    //                 datasetId: dataset.id,
-    //             });
-    //         }
-    //     }
-    //     test()
-    // }, []);
 
     useEffect(() => {
         const handler = setTimeout(async () => {
