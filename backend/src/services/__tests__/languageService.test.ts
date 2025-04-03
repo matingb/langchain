@@ -1,4 +1,4 @@
-import { vi } from "vitest";
+import {vi} from "vitest";
 import {detectLanguage} from "../languageService";
 
 const invokeMock = vi.hoisted(() => vi.fn())

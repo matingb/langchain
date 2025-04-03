@@ -1,0 +1,5 @@
+{
+  "exec": "node --require dotenv/config --loader ts-node/esm src/server.ts",
+  "ext": "ts",
+  "watch": ["src"]
+}
