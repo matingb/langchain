@@ -1,0 +1,6 @@
+{
+  "printWidth": 130,
+  "bracketSpacing": true,
+  "singleAttributePerLine": false,
+  "arrowParens": "always"
+}

@@ -6,18 +6,16 @@ vi.mock("../modelService", async () => ({
     ...(await vi.importActual("../modelService")),
     model: {
         withStructuredOutput: () => ({
-            invoke: () => ({language: "es", notes: "Texto en español"})
+            invoke: invokeMock
         }),
     },
 }));
 
 describe("detectLanguage", () => {
 
-    beforeEach(() => {
-        vi.restoreAllMocks();
-    });
+    beforeEach(() => { vi.restoreAllMocks() });
 
-    it("debería detectar el idioma correctamente", async () => {
+    it("given a message in spanish, should return the detected language", async () => {
         invokeMock.mockReturnValue({language: "es", notes: "Texto en español"})
 
         const result = await detectLanguage("Hola, ¿cómo estás?");
@@ -28,22 +26,11 @@ describe("detectLanguage", () => {
         });
     });
 
-    // it("debería lanzar un error si el modelo no devuelve un idioma", async () => {
-    //     mockInvoke.mockResolvedValue({language: ""});
-    //
-    //     await expect(detectLanguage("Hello!")).rejects.toThrow(
-    //         "Language detection failed: missing language field"
-    //     );
-    // });
-    //
-    // it("debería manejar una respuesta sin notas", async () => {
-    //     mockInvoke.mockResolvedValue({language: "en", notes: undefined});
-    //
-    //     const result = await detectLanguage("Hello!");
-    //
-    //     expect(result).toEqual({
-    //         language: "en",
-    //         notes: null, // Se normaliza a null si `notes` es undefined
-    //     });
-    // });
+    it("given no language, should throw an error", async () => {
+        invokeMock.mockResolvedValue({language: ""});
+
+        await expect(detectLanguage("Hello!")).rejects.toThrow(
+            "Language detection failed: missing language field"
+        );
+    });
 });
