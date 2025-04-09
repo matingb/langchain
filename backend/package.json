@@ -13,7 +13,8 @@
   "scripts": {
     "start": "nodemon",
     "build": "tsc",
-    "test": "vitest"
+    "test": "vitest",
+    "validateDataset": "node --require dotenv/config --loader ts-node/esm src/services/__tests__/validateDataset.ts"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
