@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",              // Permite usar import/export en Node.js
-    "moduleResolution": "NodeNext",    // Resuelve módulos en modo ESM
-    "target": "ESNext",                // Usa la última versión de JavaScript
-    "esModuleInterop": true,           // Permite importar módulos CommonJS
-    "strict": true,                     // Habilita chequeos estrictos de TypeScript
-    "skipLibCheck": true,               // Omite chequeo de tipos en archivos de librerías
-    "resolveJsonModule": true,          // Permite importar archivos JSON
-    "allowJs": true,                    // Permite importar archivos `.js`
-    "outDir": "dist",                   // Carpeta donde irán los archivos compilados (aunque no se usen con `ts-node`)
-    "rootDir": "src"                    // Directorio base de los archivos `.ts`
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": "dist",
+    "rootDir": "src"
   },
   "ts-node": {
-    "esm": true,                        // Activa soporte para módulos ESM
-    "transpileOnly": true,              // Acelera la ejecución omitiendo verificación de tipos
+    "esm": true,
+    "transpileOnly": true,
     "experimentalSpecifierResolution": "node"
   }
 }

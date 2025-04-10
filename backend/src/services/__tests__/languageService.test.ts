@@ -4,11 +4,7 @@ import {detectLanguage} from "../languageService";
 const invokeMock = vi.hoisted(() => vi.fn())
 vi.mock("../modelService", async () => ({
     ...(await vi.importActual("../modelService")),
-    model: {
-        withStructuredOutput: () => ({
-            invoke: invokeMock
-        }),
-    },
+    languageDetectionModel: {invoke: invokeMock},
 }));
 
 describe("detectLanguage", () => {

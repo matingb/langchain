@@ -1,5 +1,11 @@
+export enum Language {
+    ES = "es",
+    EN = "en",
+    IT = "it",
+}
+
 export interface LanguageDetectionResponse {
-    language: string;
+    language: Language;
     notes?: string | null;
 }
 export interface TranslationRequest {
