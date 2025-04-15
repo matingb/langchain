@@ -5,6 +5,7 @@ import {postTranslate} from "./networkRequests/postTranslate";
 import throttle from "lodash/throttle";
 import {postDetectLanguage} from "./networkRequests/postDetectLanguage";
 import Grid from '@mui/material/Grid';
+import {MenuItem, Select, TextField} from "@mui/material";
 
 function App() {
     const [input, setInput] = useState('');
@@ -32,35 +33,42 @@ function App() {
     );
 
     useEffect(() => {
+        if (!input.trim()) return;
         throttleDetectLanguage(input, sourceLang, targetLang)
     }, [input, sourceLang, targetLang, throttleDetectLanguage]);
 
     return (
         <Grid className="container">
             <Grid className="column">
-                <select value={sourceLang} onChange={(e) => setSourceLang(e.target.value as Language)}>
+                <Select value={sourceLang} size="small" onChange={(e) => setSourceLang(e.target.value as Language)}>
                     {Object.entries(Language).map(([key, value]) => (
-                        <option key={key} value={value}>{key}</option>
+                        <MenuItem key={key} value={value}>{key}</MenuItem>
                     ))}
-                </select>
-                <textarea
-                    className="text-box"
+                </Select>
+                <TextField
+                    variant="outlined"
+                    multiline
+                    rows={8}
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                />
+                    onChange={(e) => setInput(e.target.value)}/>
             </Grid>
 
             <Grid className="column">
-                <select value={targetLang} onChange={(e) => setTargetLang(e.target.value as Language)}>
+                <Select value={targetLang} size="small" onChange={(e) => setTargetLang(e.target.value as Language)}>
                     {Object.entries(Language).map(([key, value]) => (
-                        <option key={key} value={value}>{key}</option>
+                        <MenuItem key={key} value={value}>{key}</MenuItem>
                     ))}
-                </select>
-                <textarea
-                    className="text-box"
+                </Select>
+                <TextField
+                    variant="outlined"
+                    multiline
+                    rows={8}
                     value={output}
-                    readOnly
-                />
+                    slotProps={{
+                        input: {
+                            readOnly: true,
+                        },
+                    }}/>
             </Grid>
         </Grid>
     );

@@ -1,15 +1,13 @@
 .container {
+  width: 100%;
   display: flex;
   padding: 30px;
   column-gap: 20px;
+  justify-content: center;
 }
 
 .column {
   display: flex;
+  width: 100%;
   flex-direction: column;
-}
-
-.text-box {
-  width: 500px;
-  height: 300px;
 }
