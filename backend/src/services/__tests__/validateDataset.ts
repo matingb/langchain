@@ -1,8 +1,8 @@
 import { Client, Example, Run } from "langsmith";
 import dotenv from "dotenv";
-import { detectLanguage } from "../languageService.ts";
 import { evaluate, EvaluationResult } from "langsmith/evaluation";
 import chalk from "chalk";
+import { languageDetectorService } from "../languageService.js";
 
 dotenv.config();
 
@@ -41,7 +41,7 @@ async function evaluateDataset(datasetName: string) {
 
   const result = await evaluate(
     async (exampleInput: { question: string }) => {
-      const response = await detectLanguage(exampleInput.question);
+      const response = await languageDetectorService.detectLanguage(exampleInput.question);
       return { answer: response.language };
     },
     {
