@@ -1,10 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
-dotenv.config();
 import cors from "cors";
+import { languageDetectorService } from "./services/languageService.js";
+import { translatorService } from "./services/translationService.js";
 
-import {translateText} from "./services/translationService";
-import {detectLanguage} from "./services/languageService";
+dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -12,20 +12,23 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 
-app.post('/detect-language', async (req, res) => {
-    const {text} = req.body;
-
-    const response = await detectLanguage(text);
-    res.json({language: response.language});
-})
+app.post("/detect-language", async (req, res) => {
+  const { text } = req.body;
+  const response = await languageDetectorService.detectLanguage(text);
+  res.json({ language: response.language });
+});
 
 app.post("/translate", async (req, res) => {
-    const {text, sourceLang, targetLang} = req.body;
-
-    const translation = await translateText({text, sourceLang, targetLang});
-    res.json({translation});
-})
+  const { text, sourceLang, targetLang, toneStyles } = req.body;
+  const translation = await translatorService.translateText({
+    text,
+    sourceLang,
+    targetLang,
+    toneStyles,
+  });
+  res.json({ translation });
+});
 
 app.listen(PORT, () => {
-console.log(`Server running: http://localhost:${PORT}`);
+  console.log(`Server running: http://localhost:${PORT}`);
 });

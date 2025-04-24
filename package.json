@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "lint": "eslint \"{backend,frontend}/**/*.{ts,tsx}\" --fix",
+    "format": "prettier \"{backend,frontend}/**/*.{ts,tsx,js,jsx,json,md}\" --write",
+    "check:format": "prettier \"{backend,frontend}/**/*.{ts,tsx,js,jsx,json,md}\" --check"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.31.0",
+    "@typescript-eslint/parser": "^8.31.0",
+    "eslint": "^9.25.1",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-prettier": "^5.2.6",
+    "prettier": "^3.5.3"
+  }
+}
