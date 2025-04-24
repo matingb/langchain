@@ -11,7 +11,8 @@
     "zod": "^3.24.2"
   },
   "scripts": {
-    "start": "nodemon",
+    "start": "node dist/src/server.js",
+    "dev": "nodemon",
     "build": "tsc",
     "test": "vitest",
     "validateDataset": "node --require dotenv/config --loader ts-node/esm src/services/__tests__/validateDataset.ts"
