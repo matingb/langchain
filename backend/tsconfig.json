@@ -9,11 +9,11 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "outDir": "dist",
-    "rootDir": "src"
   },
   "ts-node": {
     "esm": true,
     "transpileOnly": true,
     "experimentalSpecifierResolution": "node"
-  }
+  },
+  "include": ["src", "vite.config.ts"]
 }
