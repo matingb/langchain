@@ -5,7 +5,8 @@ export type DetectLanguageResponse = {
 };
 
 export const postDetectLanguage = async (input: string): Promise<DetectLanguageResponse> => {
-  const response = await fetch("http://localhost:3001/detect-language", {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const response = await fetch(`${apiUrl}/detect-language`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ text: input }),

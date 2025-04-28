@@ -10,7 +10,8 @@ export const postTranslate = async (
   targetLang: LanguageCode,
   toneStyles: string[],
 ): Promise<TranslationResponse> => {
-  const response = await fetch("http://localhost:3001/translate", {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const response = await fetch(`${apiUrl}/translate`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
