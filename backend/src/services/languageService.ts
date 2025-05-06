@@ -4,11 +4,11 @@ import { LanguageDetectionResponse } from "../types.js";
 import { languageDetectionModel } from "./modelService.js";
 
 class LanguageDetectorService {
-  async detectLanguage(text: string): Promise<LanguageDetectionResponse> {
-    const prompt = await DETECT_LANGUAGE_PROMPT.format({ text });
+  async detectLanguage(input: string): Promise<LanguageDetectionResponse> {
+    const prompt = await DETECT_LANGUAGE_PROMPT.format({ text: input });
     const response = await languageDetectionModel.invoke([
       new SystemMessage(prompt),
-      new HumanMessage(text),
+      new HumanMessage(input),
     ]);
 
     if (!response.language) {

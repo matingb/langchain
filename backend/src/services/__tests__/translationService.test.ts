@@ -18,7 +18,7 @@ describe("translateText", () => {
     const targetLang = "es";
 
     const result = await translatorService.translateText({
-      text: "Hello",
+      input: "Hello",
       sourceLang: sourceLang,
       targetLang: targetLang,
       toneStyles: [],
@@ -37,7 +37,7 @@ describe("translateText", () => {
     invokeMock.mockResolvedValue({ content: "Texto con tono" });
 
     await translatorService.translateText({
-      text: "Hi",
+      input: "Hi",
       sourceLang: "en",
       targetLang: "es",
       toneStyles: ["friendly", "polite"],

@@ -14,18 +14,22 @@ app.use(express.json());
 
 app.post("/detect-language", async (req, res) => {
   const { text } = req.body;
+
   const response = await languageDetectorService.detectLanguage(text);
+
   res.json({ language: response.language });
 });
 
 app.post("/translate", async (req, res) => {
   const { text, sourceLang, targetLang, toneStyles } = req.body;
+
   const translation = await translatorService.translateText({
-    text,
+    input: text,
     sourceLang,
     targetLang,
     toneStyles,
   });
+
   res.json({ translation });
 });
 

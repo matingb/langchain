@@ -5,7 +5,7 @@ export const TRANSLATE_PROMPT = PromptTemplate.fromTemplate(
 );
 
 export const TONE_PROMPT = PromptTemplate.fromTemplate(
-  "Use the following tones: {tones}. Be strict about tone.",
+  "Rewrite it using the following tone(s): {tones}. Be strict about the tone. Ensure the output feels natural in the target language and culture. Ensure the output keeps the original meaning of the input",
 );
 
 // TODO setear TEMPERATURA o TOP_P COMO 0. Quiero algo deterministico. No se recomienda cambiar ambas

@@ -1,7 +1,7 @@
 import { ChatGroq } from "@langchain/groq";
 import { wrapSDK } from "langsmith/wrappers";
 import { z } from "zod";
-import { Language } from "../types.js";
+import { LanguageCode } from "../types.js";
 
 export const model = wrapSDK(
   new ChatGroq({
@@ -12,7 +12,7 @@ export const model = wrapSDK(
 );
 
 const LanguageDetectionResponseFormatter = z.object({
-  language: z.enum([Language.ES, Language.EN, Language.IT]),
+  language: z.nativeEnum(LanguageCode),
 });
 
 export const languageDetectionModel = model.withStructuredOutput(

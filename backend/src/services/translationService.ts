@@ -5,7 +5,7 @@ import { model } from "./modelService.js";
 
 class TranslatorService {
   async translateText({
-    text,
+    input,
     sourceLang,
     targetLang,
     toneStyles,
@@ -19,7 +19,7 @@ class TranslatorService {
 
     const response = await model.invoke([
       new SystemMessage(translatePrompt),
-      new HumanMessage(text),
+      new HumanMessage(input),
     ]);
 
     return response.content.toString();
